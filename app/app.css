@@ -193,4 +193,26 @@ body {
   .tooltip-link:hover {
     color: #c7e2ff;
   }
+
+  .statements-table-wrap {
+    @apply overflow-x-auto rounded-lg border;
+    border-color: var(--color-border);
+    background-color: var(--color-surface-alt);
+  }
+
+  .statements-table {
+    @apply w-full min-w-[40rem] border-collapse text-left text-sm;
+    color: #17304d;
+  }
+
+  .statements-table th {
+    @apply px-4 py-3 text-xs font-semibold uppercase tracking-wide;
+    background-color: var(--color-primary-100);
+    color: #173f6a;
+  }
+
+  .statements-table td {
+    @apply border-t px-4 py-3 align-top;
+    border-color: #d6e2f0;
+  }
 }

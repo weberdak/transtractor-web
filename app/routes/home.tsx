@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { Link } from "react-router";
 import parsePDF from "../../src/parsePDF";
 import { loadParserConfigFromJson } from "../../src/wasm/transtractorWasm";
 import { TransactionsData } from "../../src/types";
@@ -162,6 +163,13 @@ export default function Home() {
         <p className="app-subtitle">
           Use your web browser to extract transaction data from all your PDF bank statements
           into a single CSV file.
+        </p>
+        <p className="mt-3 text-sm text-slate-700">
+          Need to confirm whether your statement type is supported?{" "}
+          <Link to="/supported-bank-statements" className="inline-link">
+            View supported bank statements
+          </Link>
+          .
         </p>
 
         <div className="stats-grid">
