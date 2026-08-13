@@ -5,11 +5,192 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+:root {
+  --color-primary: #0053a0;
+  --color-primary-700: #004483;
+  --color-primary-100: #d9e8f6;
+  --color-primary-50: #edf4fb;
+  --color-ink: #0f1a2a;
+  --color-muted: #4f6078;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8fbff;
+  --color-border: #d6e2f0;
+}
+
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply min-h-full;
+  background: radial-gradient(circle at top, #edf4fb 0%, #f7fbff 36%, #eef4fb 100%);
+  color: var(--color-ink);
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+  }
+}
+
+@layer components {
+  .app-page {
+    @apply min-h-screen px-4 py-8 sm:px-6 sm:py-10;
+  }
+
+  .app-card {
+    @apply mx-auto w-full max-w-4xl rounded-2xl border p-6 shadow-sm sm:p-8;
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+  }
+
+  .app-title {
+    @apply text-3xl font-semibold tracking-tight sm:text-4xl;
+    color: var(--color-ink);
+  }
+
+  .app-subtitle {
+    @apply mt-2 text-sm leading-6;
+    color: var(--color-muted);
+  }
+
+  .stats-grid {
+    @apply mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2;
+  }
+
+  .stat-tile {
+    @apply rounded-lg border p-4;
+    border-color: var(--color-border);
+    background-color: var(--color-surface-alt);
+  }
+
+  .stat-label {
+    @apply text-sm;
+    color: var(--color-muted);
+  }
+
+  .stat-value {
+    @apply mt-1 text-3xl font-semibold;
+    color: var(--color-ink);
+  }
+
+  .field-card {
+    @apply rounded-lg border border-dashed p-4;
+    border-color: var(--color-border);
+    background-color: var(--color-surface-alt);
+  }
+
+  .field-header {
+    @apply flex items-center gap-2;
+  }
+
+  .field-label {
+    @apply block text-sm font-medium;
+    color: #29415f;
+  }
+
+  .tooltip-trigger {
+    @apply inline-flex h-5 w-5 items-center justify-center rounded-full border bg-white text-xs font-semibold;
+    border-color: #aac3df;
+    color: #29415f;
+  }
+
+  .tooltip-panel {
+    @apply absolute left-0 top-full z-10 mt-2 w-[min(18rem,calc(100vw-3rem))] rounded-md px-3 py-2 text-xs leading-5 text-white shadow-lg sm:left-1/2 sm:w-72 sm:-translate-x-1/2;
+    background-color: #102740;
+  }
+
+  .file-input {
+    @apply mt-2 block w-full rounded-md border bg-white px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:px-3 file:py-2 file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-60;
+    border-color: #b9cde4;
+    color: #17304d;
+  }
+
+  .file-input::file-selector-button {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .file-input:hover::file-selector-button {
+    background-color: var(--color-primary-700);
+  }
+
+  .progress-text {
+    @apply mt-2 text-sm font-medium;
+    color: #29415f;
+  }
+
+  .action-row {
+    @apply mt-6 flex flex-wrap gap-3 pl-1 sm:pl-2;
+  }
+
+  .btn-primary {
+    @apply rounded-md px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-blue-200;
+    background-color: var(--color-primary);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-700);
+  }
+
+  .btn-secondary {
+    @apply rounded-md border bg-white px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50;
+    border-color: #b9cde4;
+    color: #29415f;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-primary-50);
+  }
+
+  .console-section {
+    @apply mt-8;
+  }
+
+  .console-title {
+    @apply text-sm font-semibold uppercase tracking-wide;
+    color: #29415f;
+  }
+
+  .console-body {
+    @apply mt-2 h-52 overflow-y-auto rounded-md border p-3 font-mono text-sm;
+    border-color: #0e2741;
+    background-color: #081627;
+    color: #e7f0fb;
+  }
+
+  .console-empty {
+    color: #8aa5c5;
+  }
+
+  .console-line {
+    @apply break-all leading-6;
+  }
+
+  .console-line-error {
+    color: #ffb0b0;
+  }
+
+  .console-line-info {
+    color: #e7f0fb;
+  }
+
+  .app-footer {
+    @apply mt-8 border-t pt-4 text-xs;
+    border-color: var(--color-border);
+    color: var(--color-muted);
+  }
+
+  .inline-link {
+    @apply font-medium underline underline-offset-2;
+    color: #173f6a;
+  }
+
+  .inline-link:hover {
+    color: var(--color-primary);
+  }
+
+  .tooltip-link {
+    @apply underline underline-offset-2;
+    color: #8fc3ff;
+  }
+
+  .tooltip-link:hover {
+    color: #c7e2ff;
   }
 }

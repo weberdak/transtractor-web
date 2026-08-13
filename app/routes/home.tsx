@@ -13,7 +13,7 @@ const LOAD_PDFS_TOOLTIP_CONTENT = (
       href={LOAD_PDFS_TOOLTIP_LINK}
       target="_blank"
       rel="noreferrer"
-      className="text-sky-300 underline underline-offset-2 hover:text-sky-200"
+      className="tooltip-link"
     >
       this guide
     </a> for a list of supported banks statements.
@@ -30,7 +30,7 @@ const LOAD_CONFIG_TOOLTIP_CONTENT = (
       href={LOAD_CONFIG_TOOLTIP_LINK}
       target="_blank"
       rel="noreferrer"
-      className="text-sky-300 underline underline-offset-2 hover:text-sky-200"
+      className="tooltip-link"
     >
       this guide
     </a> for detailed instructions on how to create these files.
@@ -40,7 +40,7 @@ const LOAD_CONFIG_TOOLTIP_CONTENT = (
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "The Transtractor UI" },
+    { title: "Transtractor - GUI" },
     { name: "description", content: "Extract transaction data from your PDF bank statements" },
   ];
 }
@@ -50,6 +50,7 @@ export default function Home() {
   const [logs, setLogs] = useState<string[]>([]);
   const [isParsing, setIsParsing] = useState(false);
   const [isLoadingConfig, setIsLoadingConfig] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState<"pdf" | "config" | null>(null);
   const [parseProgress, setParseProgress] = useState<{
     current: number;
     total: number;
@@ -153,45 +154,54 @@ export default function Home() {
   const isBusy = isParsing || isLoadingConfig;
 
   return (
-    <main className="min-h-screen bg-slate-100 py-10 px-4">
-      <section className="mx-auto w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <h1 className="text-4xl font-semibold text-slate-900">
-          Transtractor Web Interface
+    <main className="app-page">
+      <section className="app-card">
+        <h1 className="app-title">
+          Transtractor GUI
         </h1>
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="app-subtitle">
           Use your web browser to extract transaction data from all your PDF bank statements
           into a single CSV file.
         </p>
 
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <article className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm text-slate-500"># Transactions</p>
-            <p className="mt-1 text-3xl font-semibold text-slate-900">
+        <div className="stats-grid">
+          <article className="stat-tile">
+            <p className="stat-label"># Transactions</p>
+            <p className="stat-value">
               {data.transactions.length}
             </p>
           </article>
-          <article className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm text-slate-500"># Accounts</p>
-            <p className="mt-1 text-3xl font-semibold text-slate-900">
+          <article className="stat-tile">
+            <p className="stat-label"># Accounts</p>
+            <p className="stat-value">
               {data.accountNumbers.size}
             </p>
           </article>
         </div>
 
-        <div className="mt-6 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4">
-          <div className="flex items-center gap-2">
-            <label className="block text-sm font-medium text-slate-700" htmlFor="pdf-upload">
+        <div className="mt-6 field-card">
+          <div className="field-header">
+            <label className="field-label" htmlFor="pdf-upload">
               Load PDFs
             </label>
-            <span className="group relative inline-flex">
+            <span className="relative inline-flex">
               <button
                 type="button"
                 aria-label="More information about loading PDFs"
-                className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-600"
+                aria-controls="load-pdfs-tooltip"
+                aria-expanded={openTooltip === "pdf"}
+                onClick={() =>
+                  setOpenTooltip((current) => (current === "pdf" ? null : "pdf"))
+                }
+                className="tooltip-trigger"
               >
                 ?
               </button>
-              <span className="absolute left-1/2 top-full z-10 mt-2 hidden w-72 -translate-x-1/2 rounded-md bg-slate-900 px-3 py-2 text-xs leading-5 text-slate-100 shadow-lg group-hover:block group-focus-within:block">
+              <span
+                id="load-pdfs-tooltip"
+                role="tooltip"
+                className={`tooltip-panel ${openTooltip === "pdf" ? "block" : "hidden"}`}
+              >
                 {LOAD_PDFS_TOOLTIP_CONTENT}
               </span>
             </span>
@@ -204,29 +214,38 @@ export default function Home() {
             accept="application/pdf"
             onChange={handleLoadFiles}
             disabled={isBusy}
-            className="mt-2 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 file:mr-3 file:rounded-md file:border-0 file:bg-slate-900 file:px-3 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="file-input"
           />
           {isParsing && parseProgress ? (
-            <p className="mt-2 text-sm font-medium text-slate-700">
+            <p className="progress-text">
               Extracting file {parseProgress.current} of {parseProgress.total}
             </p>
           ) : null}
         </div>
 
-        <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4">
-          <div className="flex items-center gap-2">
-            <label className="block text-sm font-medium text-slate-700" htmlFor="config-upload">
+        <div className="mt-4 field-card">
+          <div className="field-header">
+            <label className="field-label" htmlFor="config-upload">
               Load custom parser config (optional)
             </label>
-            <span className="group relative inline-flex">
+            <span className="relative inline-flex">
               <button
                 type="button"
                 aria-label="More information about custom parser config files"
-                className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 bg-white text-xs font-semibold text-slate-600"
+                aria-controls="load-config-tooltip"
+                aria-expanded={openTooltip === "config"}
+                onClick={() =>
+                  setOpenTooltip((current) => (current === "config" ? null : "config"))
+                }
+                className="tooltip-trigger"
               >
                 ?
               </button>
-              <span className="absolute left-1/2 top-full z-10 mt-2 hidden w-72 -translate-x-1/2 rounded-md bg-slate-900 px-3 py-2 text-xs leading-5 text-slate-100 shadow-lg group-hover:block group-focus-within:block">
+              <span
+                id="load-config-tooltip"
+                role="tooltip"
+                className={`tooltip-panel ${openTooltip === "config" ? "block" : "hidden"}`}
+              >
                 {LOAD_CONFIG_TOOLTIP_CONTENT}
               </span>
             </span>
@@ -239,16 +258,16 @@ export default function Home() {
             accept="application/json,.json"
             onChange={handleLoadConfigFiles}
             disabled={isBusy}
-            className="mt-2 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 file:mr-3 file:rounded-md file:border-0 file:bg-slate-900 file:px-3 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="file-input"
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="action-row">
           <button
             type="button"
             onClick={handleExportCSV}
             disabled={!canExport || isBusy}
-            className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-300"
+            className="btn-primary"
           >
             Export to CSV
           </button>
@@ -256,29 +275,29 @@ export default function Home() {
             type="button"
             onClick={handleClearData}
             disabled={isBusy}
-            className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn-secondary"
           >
             Clear Data
           </button>
         </div>
 
-        <section className="mt-8">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+        <section className="console-section">
+          <h2 className="console-title">
             Console
           </h2>
           <div
             ref={consoleRef}
-            className="mt-2 h-52 overflow-y-auto rounded-md border border-slate-200 bg-slate-950 p-3 font-mono text-sm text-slate-100"
+            className="console-body"
           >
             {logs.length === 0 ? (
-              <p className="text-slate-400">No logs yet.</p>
+              <p className="console-empty">No logs yet.</p>
             ) : (
               logs.map((line, index) => {
                 const isError = line.startsWith("Error ");
                 return (
                   <p
                     key={`${line}-${index}`}
-                    className={`break-all leading-6 ${isError ? "text-red-400" : "text-slate-100"}`}
+                    className={`console-line ${isError ? "console-line-error" : "console-line-info"}`}
                   >
                     {line}
                   </p>
@@ -288,14 +307,14 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="mt-8 border-t border-slate-200 pt-4 text-xs text-slate-600">
+        <footer className="app-footer">
           <p>
             The Transtractor is an open-source PDF bank statement parser. Follow this project on{" "}
             <a
               href="https://github.com/transtractor/transtractor-lib"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-slate-800 underline underline-offset-2 hover:text-slate-900"
+              className="inline-link"
             >
               GitHub
             </a>
@@ -304,7 +323,7 @@ export default function Home() {
               href="https://transtractor-lib.readthedocs.io/"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-slate-800 underline underline-offset-2 hover:text-slate-900"
+              className="inline-link"
             >
               Read the Docs
             </a>
@@ -313,7 +332,7 @@ export default function Home() {
               href="https://pypi.org/project/transtractor/"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-slate-800 underline underline-offset-2 hover:text-slate-900"
+              className="inline-link"
             >
               PyPI
             </a>
@@ -322,7 +341,7 @@ export default function Home() {
               href="https://github.com/transtractor/transtractor-web"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-slate-800 underline underline-offset-2 hover:text-slate-900"
+              className="inline-link"
             >
               source code
             </a>. Copyright © 2026 Daniel Weber.
