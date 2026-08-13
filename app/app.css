@@ -170,6 +170,10 @@ body {
     color: #e7f0fb;
   }
 
+  .output-text {
+    @apply whitespace-pre-wrap break-all;
+  }
+
   .app-footer {
     @apply mt-8 border-t pt-4 text-xs;
     border-color: var(--color-border);
