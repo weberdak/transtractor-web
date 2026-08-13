@@ -206,10 +206,10 @@ export default function Develop() {
   return (
     <main className="app-page">
       <section className="app-card">
-        <h1 className="app-title">Develop</h1>
+        <h1 className="app-title">Developer Tools</h1>
         <p className="app-subtitle">
           Tools to help developers create and validate custom Transtractor parsing config
-          files, directly in your browser.
+          files.
         </p>
 
         <div className="mt-6 field-card">
