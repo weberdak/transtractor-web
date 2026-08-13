@@ -4,7 +4,13 @@
 export class Parser {
     free(): void;
     [Symbol.dispose](): void;
+    debug(pdf_path: string, output_file: string): void;
+    debugBytes(pdf_bytes: Uint8Array): string;
+    debugLayout(layout_path: string, output_file: string): void;
+    debugLayoutText(layout_text: string): string;
     getDeprecationWarnings(): any[];
+    layout(pdf_path: string, output_file: string): void;
+    layoutBytes(pdf_bytes: Uint8Array): string;
     load(config_json_path: string): void;
     loadConfigFromJson(config_json: string): void;
     constructor();
@@ -12,6 +18,12 @@ export class Parser {
     parseBytes(pdf_bytes: Uint8Array): any;
     parseLayout(layout_path: string): any;
     parseLayoutText(layout_text: string): any;
+    spec(pdf_path: string, output_file: string): void;
+    specBytes(pdf_bytes: Uint8Array): string;
+    specLayout(layout_path: string, output_file: string): void;
+    specLayoutText(layout_text: string): string;
+    validateSpec(spec_path: string): void;
+    validateSpecText(spec_json: string): void;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -19,7 +31,13 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly __wbg_parser_free: (a: number, b: number) => void;
+    readonly parser_debug: (a: number, b: number, c: number, d: number, e: number) => [number, number];
+    readonly parser_debugBytes: (a: number, b: number, c: number) => [number, number, number, number];
+    readonly parser_debugLayout: (a: number, b: number, c: number, d: number, e: number) => [number, number];
+    readonly parser_debugLayoutText: (a: number, b: number, c: number) => [number, number, number, number];
     readonly parser_getDeprecationWarnings: (a: number) => [number, number];
+    readonly parser_layout: (a: number, b: number, c: number, d: number, e: number) => [number, number];
+    readonly parser_layoutBytes: (a: number, b: number, c: number) => [number, number, number, number];
     readonly parser_load: (a: number, b: number, c: number) => [number, number];
     readonly parser_loadConfigFromJson: (a: number, b: number, c: number) => [number, number];
     readonly parser_new: () => number;
@@ -27,14 +45,20 @@ export interface InitOutput {
     readonly parser_parseBytes: (a: number, b: number, c: number) => [number, number, number];
     readonly parser_parseLayout: (a: number, b: number, c: number) => [number, number, number];
     readonly parser_parseLayoutText: (a: number, b: number, c: number) => [number, number, number];
+    readonly parser_spec: (a: number, b: number, c: number, d: number, e: number) => [number, number];
+    readonly parser_specBytes: (a: number, b: number, c: number) => [number, number, number, number];
+    readonly parser_specLayout: (a: number, b: number, c: number, d: number, e: number) => [number, number];
+    readonly parser_specLayoutText: (a: number, b: number, c: number) => [number, number, number, number];
+    readonly parser_validateSpec: (a: number, b: number, c: number) => [number, number];
+    readonly parser_validateSpecText: (a: number, b: number, c: number) => [number, number];
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_exn_store: (a: number) => void;
     readonly __externref_table_alloc: () => number;
     readonly __wbindgen_externrefs: WebAssembly.Table;
-    readonly __externref_drop_slice: (a: number, b: number) => void;
-    readonly __wbindgen_free: (a: number, b: number, c: number) => void;
     readonly __externref_table_dealloc: (a: number) => void;
+    readonly __wbindgen_free: (a: number, b: number, c: number) => void;
+    readonly __externref_drop_slice: (a: number, b: number) => void;
     readonly __wbindgen_start: () => void;
 }
 

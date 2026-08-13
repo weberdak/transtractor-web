@@ -18,6 +18,12 @@ export type WasmStatementData = {
 type WasmParser = {
   parseBytes(pdfBytes: Uint8Array): unknown;
   loadConfigFromJson(configJson: string): void;
+  debugBytes(pdfBytes: Uint8Array): string;
+  layoutBytes(pdfBytes: Uint8Array): string;
+  specBytes(pdfBytes: Uint8Array): string;
+  debugLayoutText(layoutText: string): string;
+  specLayoutText(layoutText: string): string;
+  validateSpecText(specJson: string): void;
 };
 
 type WasmModule = {
@@ -64,4 +70,51 @@ export async function loadParserConfigFromJson(
 ): Promise<void> {
   const parser = await getParser();
   parser.loadConfigFromJson(configJson);
+}
+
+// Discards the current parser instance so the next call starts from a clean state.
+export function resetParser(): void {
+  parserPromise = null;
+}
+
+export async function debugPdfBytesWithWasm(
+  pdfBytes: Uint8Array,
+): Promise<string> {
+  const parser = await getParser();
+  return parser.debugBytes(pdfBytes);
+}
+
+export async function layoutPdfBytesWithWasm(
+  pdfBytes: Uint8Array,
+): Promise<string> {
+  const parser = await getParser();
+  return parser.layoutBytes(pdfBytes);
+}
+
+export async function specPdfBytesWithWasm(
+  pdfBytes: Uint8Array,
+): Promise<string> {
+  const parser = await getParser();
+  return parser.specBytes(pdfBytes);
+}
+
+export async function debugLayoutTextWithWasm(
+  layoutText: string,
+): Promise<string> {
+  const parser = await getParser();
+  return parser.debugLayoutText(layoutText);
+}
+
+export async function specLayoutTextWithWasm(
+  layoutText: string,
+): Promise<string> {
+  const parser = await getParser();
+  return parser.specLayoutText(layoutText);
+}
+
+export async function validateSpecTextWithWasm(
+  specJson: string,
+): Promise<void> {
+  const parser = await getParser();
+  parser.validateSpecText(specJson);
 }
