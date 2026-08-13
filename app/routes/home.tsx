@@ -169,6 +169,10 @@ export default function Home() {
           <Link to="/supported-bank-statements" className="inline-link">
             View supported bank statements
           </Link>
+          . For a short overview of how this tool works, see the{" "}
+          <Link to="/about" className="inline-link">
+            About page
+          </Link>
           .
         </p>
 
