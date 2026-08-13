@@ -5,39 +5,7 @@ import parsePDF from "../../src/parsePDF";
 import { loadParserConfigFromJson } from "../../src/wasm/transtractorWasm";
 import { TransactionsData } from "../../src/types";
 
-const LOAD_PDFS_TOOLTIP_LINK = "https://transtractor-lib.readthedocs.io/en/latest/supported_statements.html";
-
-const LOAD_PDFS_TOOLTIP_CONTENT = (
-  <>
-    PDF files are extracted inside your browser and never leave your device. See{" "}
-    <a
-      href={LOAD_PDFS_TOOLTIP_LINK}
-      target="_blank"
-      rel="noreferrer"
-      className="tooltip-link"
-    >
-      this guide
-    </a> for a list of supported banks statements.
-  </>
-);
-
 const LOAD_CONFIG_TOOLTIP_LINK = "https://transtractor-lib.readthedocs.io/en/latest/configuration.html";
-
-const LOAD_CONFIG_TOOLTIP_CONTENT = (
-  <>
-    If your banks statements are not supported, you may load your own extraction rules as JSON files.
-    See{" "}
-    <a
-      href={LOAD_CONFIG_TOOLTIP_LINK}
-      target="_blank"
-      rel="noreferrer"
-      className="tooltip-link"
-    >
-      this guide
-    </a> for detailed instructions on how to create these files.
-    .
-  </>
-);
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -51,7 +19,6 @@ export default function Home() {
   const [logs, setLogs] = useState<string[]>([]);
   const [isParsing, setIsParsing] = useState(false);
   const [isLoadingConfig, setIsLoadingConfig] = useState(false);
-  const [openTooltip, setOpenTooltip] = useState<"pdf" | "config" | null>(null);
   const [parseProgress, setParseProgress] = useState<{
     current: number;
     total: number;
@@ -196,27 +163,6 @@ export default function Home() {
             <label className="field-label" htmlFor="pdf-upload">
               Load PDFs
             </label>
-            <span className="relative inline-flex">
-              <button
-                type="button"
-                aria-label="More information about loading PDFs"
-                aria-controls="load-pdfs-tooltip"
-                aria-expanded={openTooltip === "pdf"}
-                onClick={() =>
-                  setOpenTooltip((current) => (current === "pdf" ? null : "pdf"))
-                }
-                className="tooltip-trigger"
-              >
-                ?
-              </button>
-              <span
-                id="load-pdfs-tooltip"
-                role="tooltip"
-                className={`tooltip-panel ${openTooltip === "pdf" ? "block" : "hidden"}`}
-              >
-                {LOAD_PDFS_TOOLTIP_CONTENT}
-              </span>
-            </span>
           </div>
           <input
             ref={inputRef}
@@ -228,6 +174,12 @@ export default function Home() {
             disabled={isBusy}
             className="file-input"
           />
+          <p className="mt-3 text-xs leading-5 text-slate-500">
+            Load as many statements as you want, even across multiple accounts. Duplicate
+            files and transactions are ignored automatically. You can upload in multiple
+            batches and export when you are done. Statements are loaded into your browser,
+            not sent to a remote server.
+          </p>
           {isParsing && parseProgress ? (
             <p className="progress-text">
               Extracting file {parseProgress.current} of {parseProgress.total}
@@ -240,27 +192,6 @@ export default function Home() {
             <label className="field-label" htmlFor="config-upload">
               Load custom parser config (optional)
             </label>
-            <span className="relative inline-flex">
-              <button
-                type="button"
-                aria-label="More information about custom parser config files"
-                aria-controls="load-config-tooltip"
-                aria-expanded={openTooltip === "config"}
-                onClick={() =>
-                  setOpenTooltip((current) => (current === "config" ? null : "config"))
-                }
-                className="tooltip-trigger"
-              >
-                ?
-              </button>
-              <span
-                id="load-config-tooltip"
-                role="tooltip"
-                className={`tooltip-panel ${openTooltip === "config" ? "block" : "hidden"}`}
-              >
-                {LOAD_CONFIG_TOOLTIP_CONTENT}
-              </span>
-            </span>
           </div>
           <input
             ref={configInputRef}
@@ -272,6 +203,18 @@ export default function Home() {
             disabled={isBusy}
             className="file-input"
           />
+          <p className="mt-3 text-xs leading-5 text-slate-500">
+            You may create and load these if your statements are not yet supported. See{" "}
+            <a
+              href={LOAD_CONFIG_TOOLTIP_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className="tooltip-link"
+            >
+              this page
+            </a>{" "}
+            for details on how to create them.
+          </p>
         </div>
 
         <div className="action-row">
