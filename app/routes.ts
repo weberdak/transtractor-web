@@ -4,6 +4,7 @@ export default [
   index("routes/home.tsx"),
   route("about", "routes/about.tsx"),
   route("privacy-policy", "routes/privacy-policy.tsx"),
+  route("sitemap.xml", "routes/sitemap[.]xml.ts"),
   route("supported-bank-statements", "routes/supported-bank-statements.tsx"),
   route("terms-of-use", "routes/terms-of-use.tsx"),
 ] satisfies RouteConfig;
