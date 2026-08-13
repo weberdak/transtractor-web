@@ -53,6 +53,17 @@ export default function About() {
             </li>
             <li>
               <a
+                href="https://github.com/weberdak/transtractor-web"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-link"
+              >
+                GitHub Web Repository
+              </a>{" "}
+              - Self-host this website or adapt the web interface for your own use.
+            </li>
+            <li>
+              <a
                 href="https://pypi.org/project/transtractor/"
                 target="_blank"
                 rel="noreferrer"
