@@ -3,5 +3,7 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 export default [
   index("routes/home.tsx"),
   route("about", "routes/about.tsx"),
+  route("privacy-policy", "routes/privacy-policy.tsx"),
   route("supported-bank-statements", "routes/supported-bank-statements.tsx"),
+  route("terms-of-use", "routes/terms-of-use.tsx"),
 ] satisfies RouteConfig;

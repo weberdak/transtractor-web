@@ -264,7 +264,15 @@ export default function Home() {
             <Link to="/about" className="inline-link">
               About page
             </Link>
-            {" "}for project details and related resources. Copyright © 2026 Daniel Weber.
+            {" "}for project details and related resources, or read the{" "}
+            <Link to="/privacy-policy" className="inline-link">
+              Privacy Policy
+            </Link>
+            {" "}and{" "}
+            <Link to="/terms-of-use" className="inline-link">
+              Terms of Use
+            </Link>
+            . Copyright © 2026 Daniel Weber.
           </p>
         </footer>
       </section>
