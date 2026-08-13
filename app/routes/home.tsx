@@ -136,10 +136,6 @@ export default function Home() {
           <Link to="/supported-bank-statements" className="inline-link">
             View supported bank statements
           </Link>
-          . For a short overview of how this tool works, see the{" "}
-          <Link to="/about" className="inline-link">
-            About page
-          </Link>
           .
         </p>
 
@@ -264,42 +260,11 @@ export default function Home() {
 
         <footer className="app-footer">
           <p>
-            The Transtractor is an open-source PDF bank statement parser. Follow this project on{" "}
-            <a
-              href="https://github.com/transtractor/transtractor-lib"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-link"
-            >
-              GitHub
-            </a>
-            ,{" "}
-            <a
-              href="https://transtractor-lib.readthedocs.io/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-link"
-            >
-              Read the Docs
-            </a>
-            , and{" "}
-            <a
-              href="https://pypi.org/project/transtractor/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-link"
-            >
-              PyPI
-            </a>
-            . Self-host this website from the{" "}
-            <a
-              href="https://github.com/transtractor/transtractor-web"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-link"
-            >
-              source code
-            </a>. Copyright © 2026 Daniel Weber.
+            The Transtractor is an open-source PDF bank statement parser. See the{" "}
+            <Link to="/about" className="inline-link">
+              About page
+            </Link>
+            {" "}for project details and related resources. Copyright © 2026 Daniel Weber.
           </p>
         </footer>
       </section>
