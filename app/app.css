@@ -205,8 +205,23 @@ body {
   }
 
   .statements-table {
-    @apply w-full min-w-[40rem] border-collapse text-left text-sm;
+    @apply w-full min-w-[40rem] table-fixed border-collapse text-left text-sm;
     color: #17304d;
+  }
+
+  .statements-table th:nth-child(1),
+  .statements-table td:nth-child(1) {
+    width: 28%;
+  }
+
+  .statements-table th:nth-child(2),
+  .statements-table td:nth-child(2) {
+    width: 24%;
+  }
+
+  .statements-table th:nth-child(3),
+  .statements-table td:nth-child(3) {
+    width: 48%;
   }
 
   .statements-table th {

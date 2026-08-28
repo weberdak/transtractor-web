@@ -40,6 +40,14 @@ const AUSTRALIA_STATEMENTS: StatementRow[] = [
   },
 ];
 
+const US_STATEMENTS: StatementRow[] = [
+  {
+    bank: "American Express",
+    accountType: "Credit Card",
+    exampleAccounts: "Platinum Card",
+  },
+];
+
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Transtractor - Supported Bank Statements" },
@@ -75,6 +83,36 @@ export default function SupportedBankStatements() {
             </thead>
             <tbody>
               {AUSTRALIA_STATEMENTS.map((statement) => (
+                <tr key={`${statement.bank}-${statement.accountType}-${statement.exampleAccounts}`}>
+                  <td>{statement.bank}</td>
+                  <td>{statement.accountType}</td>
+                  <td>{statement.exampleAccounts}</td>
+                </tr>
+              ))}
+              {US_STATEMENTS.map((statement) => (
+                <tr key={`${statement.bank}-${statement.accountType}-${statement.exampleAccounts}`}>
+                  <td>{statement.bank}</td>
+                  <td>{statement.accountType}</td>
+                  <td>{statement.exampleAccounts}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2 className="mt-6 text-lg font-semibold text-slate-900">United States</h2>
+
+        <div className="statements-table-wrap mt-3">
+          <table className="statements-table">
+            <thead>
+              <tr>
+                <th scope="col">Bank</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Example Accounts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {US_STATEMENTS.map((statement) => (
                 <tr key={`${statement.bank}-${statement.accountType}-${statement.exampleAccounts}`}>
                   <td>{statement.bank}</td>
                   <td>{statement.accountType}</td>
