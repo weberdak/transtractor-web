@@ -89,13 +89,6 @@ export default function SupportedBankStatements() {
                   <td>{statement.exampleAccounts}</td>
                 </tr>
               ))}
-              {US_STATEMENTS.map((statement) => (
-                <tr key={`${statement.bank}-${statement.accountType}-${statement.exampleAccounts}`}>
-                  <td>{statement.bank}</td>
-                  <td>{statement.accountType}</td>
-                  <td>{statement.exampleAccounts}</td>
-                </tr>
-              ))}
             </tbody>
           </table>
         </div>
